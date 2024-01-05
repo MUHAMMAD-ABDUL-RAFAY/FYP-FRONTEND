@@ -41,7 +41,7 @@ function VideoPreview() {
       setFiles(updatedFilesList);
     }
     return (
-      <>
+      <div className= "VideoPreview">
         <Dropzone
             onChange={updateFiles}
             value={underUploadFiles}
@@ -54,7 +54,7 @@ function VideoPreview() {
             fakeUpload
             actionButtons={{
                 position: "after",
-                uploadButton: { style: { textTransform: "uppercase" } },
+                uploadButton: {},  //style: { textTransform: "uppercase" } 
                 abortButton: {},
                 cleanButton: {},
                 deleteButton: {},
@@ -83,7 +83,7 @@ function VideoPreview() {
           <div><ReactPlayer url={videoURL} playing={true} loop={true} controls={true}  width="390px" height="300px" /></div>
           <div><ReactPlayer url={videoURL} playing={true} loop={true} controls={true}  width="390px" height="300px" /></div> */}
         </div> }
-      </>
+      </div>
     );
 }
 

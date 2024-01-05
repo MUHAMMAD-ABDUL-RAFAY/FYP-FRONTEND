@@ -80,6 +80,10 @@ button:focus-visible {
   justify-items: center;
 }
 
-
+.VideoPreview{
+  margin-top: 2rem;
+  align-content: center;
+  padding: 0px 20px 0px 20px;
+}
 
 /* style={{display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(400px,1fr))', marginTop:"2rem"}} */
