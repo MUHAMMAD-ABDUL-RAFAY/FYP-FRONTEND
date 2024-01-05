@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -66,3 +71,15 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+
+.cameraDisplay {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+  margin-top: 2rem;
+  justify-items: center;
+}
+
+
+
+/* style={{display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(400px,1fr))', marginTop:"2rem"}} */
