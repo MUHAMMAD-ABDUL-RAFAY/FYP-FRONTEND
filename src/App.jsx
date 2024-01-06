@@ -1,6 +1,8 @@
 // import { useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
+import React from 'react';
+// import from 'react-router-dom'
 import UploadPreview from '../components/UploadPreview';
 import Navbar from '../components/Navbar';
 import './App.css'
