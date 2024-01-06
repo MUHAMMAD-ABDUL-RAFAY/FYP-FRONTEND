@@ -10,6 +10,7 @@ function VideoUpload(props) {
     // console.log(files)
     // console.log(videoURL)
     const updateFiles = (acceptedFiles) => {
+      console.log("update",acceptedFiles)
       // console.log("accepted: ",acceptedFiles)
       // console.log(acceptedFiles[0].file)
       // console.log(URL.createObjectURL(acceptedFiles[0].file))
@@ -18,9 +19,9 @@ function VideoUpload(props) {
       // setVideoURL((prevURLs) => [...prevURLs,URL.createObjectURL(acceptedFiles[0].file)])
     };
     const UploadFinish = () => {
-      console.log("Upload Finished")
+      console.log("Upload Finished",underUploadFiles)
       // setFiles((prevFiles) => [...prevFiles,underUploadFiles[0]])
-      props.UploadHandler(underUploadFiles[0])
+      props.UploadHandler(underUploadFiles)
     }
     const removeUnderUploadFile = (fileId) => {
       console.log(fileId)
@@ -41,8 +42,8 @@ function VideoUpload(props) {
             value={underUploadFiles}
             accept="video/*"
             maxFileSize={5 * 1024 * 1024 * 1024}
-            maxFiles={1}
-            multiple={false}
+            maxFiles={3}
+            // multiple={false}
             autoClean
             uploadConfig={{ url: "https://www.myawsomeserver.com/upload" }}
             fakeUpload

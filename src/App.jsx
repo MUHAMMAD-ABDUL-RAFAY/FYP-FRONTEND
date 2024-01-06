@@ -9,7 +9,7 @@ import { useState } from 'react';
 function App() {
   const [files,setFiles] = useState([])
   const HandleUploadFinish = (newFile) => {
-    setFiles((prevFiles) => [...prevFiles,newFile])
+    setFiles((prevFiles) => [...prevFiles,...newFile])
   }
   return (
     <>
