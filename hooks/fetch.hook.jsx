@@ -37,15 +37,20 @@ if(isLocal){
 }
 else if(isSlow){
     console.log('running on slow ring')
-    axios.defaults.baseURL = 'https://crowdhawk.azurewebsites.net:443'
+    axios.defaults.baseURL = 'https://accespasswebbackend-prod.azurewebsites.net:443'
+
 }
+// else if(isSlow){
+//     console.log('running on slow ring')
+//     axios.defaults.baseURL = 'https://accespasswebbackend-canary.azurewebsites.net:443'
+// }
 // else if(isFast){
 //     console.log('running on fast ring')
-//     axios.defaults.baseURL = 'https://crowdhawk.azurewebsites.net:443'
+//     axios.defaults.baseURL = 'https://accespasswebbackend-primary.azurewebsites.net:443'
 // }
 // else{
 //     console.log('running on production')
-//     axios.defaults.baseURL = 'https://crowdhawk.azurewebsites.net:443'
+//     axios.defaults.baseURL = 'https://accespasswebbackend-prod.azurewebsites.net:443'
 // }
 
 

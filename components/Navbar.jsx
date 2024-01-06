@@ -16,7 +16,7 @@ import { useAuthStore } from '../store/store';
 import { Button } from '@mui/material';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
 function Navbar() {
@@ -27,9 +27,14 @@ function Navbar() {
   const navigate = useNavigate()
   const HandleLogout = () => {
     console.log("logout")
+    setAnchorElUser(null)
     localStorage.removeItem('token');
     setLoginStatus(false)
     navigate('/')
+  }
+  const HandleProfile = () => {
+    setAnchorElUser(null)
+    navigate('/profile')
   }
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -45,6 +50,12 @@ function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const LogoClickHandler = () => {
+    if(active)
+      navigate('/dashboard')
+    else
+      navigate('/')
+  }
 
   return (
     <AppBar position="static">
@@ -54,8 +65,6 @@ function Navbar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -65,6 +74,7 @@ function Navbar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            onClick={LogoClickHandler}
           >
             CROWDHAWK
           </Typography>
@@ -135,7 +145,7 @@ function Navbar() {
               </Button>
             ))} */}
           </Box>
-
+          
           {active ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -158,6 +168,9 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+            <MenuItem key="profile" onClick={HandleProfile}>
+              <Typography textAlign="center">Profile</Typography>
+            </MenuItem>
             <MenuItem key="logout" onClick={HandleLogout}>
               <Typography textAlign="center">Logout</Typography>
             </MenuItem>
