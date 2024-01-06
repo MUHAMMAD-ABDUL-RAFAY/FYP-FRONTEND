@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import avatar from '../assets/profile.png';
+import avatar from '../src/assets/profile.png';
 import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { usernameValidate } from '../helper/validate'
 import { useAuthStore } from '../store/store'
-
+import { Button,TextField } from '@mui/material'
 import styles from '../styles/Username.module.css';
 
 export default function Username() {
@@ -21,6 +21,7 @@ export default function Username() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values => {
+      console.log(values)
       setUsername(values.username);
       navigate('/password')
     }
@@ -30,7 +31,7 @@ export default function Username() {
     <div className="container mx-auto">
       <Toaster position='top-center' reverseOrder={false}></Toaster>
 
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center mt-16'>
         <div className={styles.glass}>
 
           <div className="title flex flex-col items-center px-4 py-4">
@@ -46,8 +47,10 @@ export default function Username() {
               </div>
 
               <div className="textbox flex flex-col items-center gap-6">
-                  <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username' />
-                  <button className={styles.btn} type='submit'>Let's Go</button>
+                  {/* <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username' /> */}
+
+                  <TextField {...formik.getFieldProps('username')} type='text' label="Username" placeholder='Username' className={styles.textbox}/>
+                  <Button variant='contained' className={styles.btn} type='submit'>Let's Go</Button>
               </div>
 
               <div className="text-center py-4">

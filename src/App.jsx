@@ -1,13 +1,37 @@
-// import { useState } from 'react'
+
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import React from 'react';
-// import from 'react-router-dom'
+import React, {useState} from 'react';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import './App.css'
 import UploadPreview from '../components/UploadPreview';
 import Navbar from '../components/Navbar';
-import './App.css'
 import VideoPlayer from '../components/VideoPlayer';
-import { useState } from 'react';
+import Username from '../components/Username';
+// import Password from '../components/Password'
+// import Register from './components/Register';
+// import Profile from './components/Profile';
+// import Recovery from './components/Recovery';
+// import Reset from './components/Reset';
+// import PageNotFound from './components/PageNotFound';
+
+import { AuthorizeUser,ProtectRoute } from '../middleware/auth';
+import Register from '../components/Register';
+
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Username />
+  },
+  {
+    path: '/register',
+    element: <Register />
+  }
+
+
+])
+
 function App() {
   const [files,setFiles] = useState([])
   const HandleUploadFinish = (newFile) => {
@@ -16,8 +40,10 @@ function App() {
   return (
     <>
       <Navbar />
-      <UploadPreview files={files} UploadHandler={HandleUploadFinish} />
-      <VideoPlayer files={files} setFiles={setFiles}/>
+      <RouterProvider router={router}></RouterProvider>
+      
+      {/* <UploadPreview files={files} UploadHandler={HandleUploadFinish} />
+      <VideoPlayer files={files} setFiles={setFiles}/> */}
     </>  
   );
   

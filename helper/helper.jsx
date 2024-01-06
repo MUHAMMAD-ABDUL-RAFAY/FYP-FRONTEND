@@ -1,6 +1,7 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
+import * as jwt_decode from 'jwt-decode';
 // axios.defaults.baseURL = 'https://mernloginbackend.azurewebsites.net:443';
 
 
@@ -27,25 +28,25 @@ import jwt_decode from 'jwt-decode';
 
 
 let isLocal = window.location.href.includes('localhost') || window.location.href.includes('127.0.0.1')
-let isSlow = window.location.href.includes('accespassweb-canary')
-let isFast = window.location.href.includes('accespassweb-primary')
+let isSlow = window.location.href.includes('crowdhawk')
+// let isFast = window.location.href.includes('accespassweb-primary')
 
 if(isLocal){
     console.log('running on local')
-    axios.defaults.baseURL = 'http://localhost:4589'
+    axios.defaults.baseURL = 'http://localhost:5173'
 }
 else if(isSlow){
     console.log('running on slow ring')
     axios.defaults.baseURL = 'https://accespasswebbackend-canary.azurewebsites.net:443'
 }
-else if(isFast){
-    console.log('running on fast ring')
-    axios.defaults.baseURL = 'https://accespasswebbackend-primary.azurewebsites.net:443'
-}
-else{
-    console.log('running on production')
-    axios.defaults.baseURL = 'https://accespasswebbackend-prod.azurewebsites.net:443'
-}
+// else if(isFast){
+//     console.log('running on fast ring')
+//     axios.defaults.baseURL = 'https://accespasswebbackend-primary.azurewebsites.net:443'
+// }
+// else{
+//     console.log('running on production')
+//     axios.defaults.baseURL = 'https://accespasswebbackend-prod.azurewebsites.net:443'
+// }
 
 
 //axios.defaults.baseURL = 'http://locahost:4589';

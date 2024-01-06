@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import avatar from '../assets/profile.png';
+import avatar from '../src/assets/profile.png';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { registerValidation } from '../helper/validate';
 import convertToBase64 from '../helper/convert';
 import { registerUser } from '../helper/helper'
-
+import {Button,TextField} from '@mui/material'
 import styles from '../styles/Username.module.css';
 
 export default function Register() {
@@ -82,7 +82,7 @@ export default function Register() {
 
       <Toaster position='top-center' reverseOrder={false}></Toaster>
 
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center mt-16'>
         <div className={styles.glass} style={{ width: "45%", paddingTop: '1em'}}>
 
           <div className="title flex flex-col items-center">
@@ -102,10 +102,13 @@ export default function Register() {
               </div>
 
               <div className="textbox flex flex-col items-center gap-2">
-                  <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
-                  <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username*' />
-                  <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password*' />
-                  <button className={styles.btn} type='submit'>Register</button>
+                  <TextField label="Email" {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
+                  
+                  <TextField label="Username" {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username*' />
+
+
+                  <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password*' />
+                  <Button variant='contained' className={styles.btn} type='submit'>Register</Button>
               </div>
 
               <div className="text-center py-2">
