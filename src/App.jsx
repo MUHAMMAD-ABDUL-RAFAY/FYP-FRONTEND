@@ -8,16 +8,14 @@ import UploadPreview from '../components/UploadPreview';
 import Navbar from '../components/Navbar';
 import VideoPlayer from '../components/VideoPlayer';
 import Username from '../components/Username';
-// import Password from '../components/Password'
-// import Register from './components/Register';
-// import Profile from './components/Profile';
-// import Recovery from './components/Recovery';
-// import Reset from './components/Reset';
-// import PageNotFound from './components/PageNotFound';
+import Password from '../components/Password'
+import Register from '../components/Register';
+import Profile from '../components/Profile';
+// import Recovery from '../components/Recovery';
+// import Reset from '../components/Reset';
+// import PageNotFound from '../components/PageNotFound';
 
 import { AuthorizeUser,ProtectRoute } from '../middleware/auth';
-import Register from '../components/Register';
-
 
 const router = createBrowserRouter([
   {
@@ -27,8 +25,15 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />
+  },
+  {
+    path: '/password',
+    element: <Password />,
+  },
+  {
+    path: '/profile',
+    element: <Profile />
   }
-
 
 ])
 

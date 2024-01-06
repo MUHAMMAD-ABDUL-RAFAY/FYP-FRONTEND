@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import jwt_decode from 'jwt-decode';
 
-import * as jwt_decode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 // axios.defaults.baseURL = 'https://mernloginbackend.azurewebsites.net:443';
 
 
@@ -60,7 +60,7 @@ else if(isSlow){
 export async function getUsername(){
     const token = localStorage.getItem('token')
     if(!token) return Promise.reject("Cannot find Token");
-    let decode = jwt_decode(token)
+    let decode = jwtDecode(token)
     return decode;
 }
 

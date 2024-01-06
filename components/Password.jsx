@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import avatar from '../assets/profile.png';
+import avatar from '../src/assets/profile.png';
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { passwordValidate } from '../helper/validate'
@@ -8,7 +8,7 @@ import useFetch from '../hooks/fetch.hook';
 import { useAuthStore } from '../store/store'
 import { verifyPassword } from '../helper/helper'
 import styles from '../styles/Username.module.css';
-
+import {Button,TextField} from '@mui/material'
 export default function Password() {
 
   const navigate = useNavigate()
@@ -47,7 +47,7 @@ export default function Password() {
 
       <Toaster position='top-center' reverseOrder={false}></Toaster>
 
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center mt-16'>
         <div className={styles.glass}>
 
           <div className="title flex flex-col items-center px-4 py-4">
@@ -63,8 +63,8 @@ export default function Password() {
               </div>
 
               <div className="textbox flex flex-col items-center gap-6">
-                  <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password' />
-                  <button className={styles.btn} type='submit'>Sign In</button>
+                  <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password' />
+                  <Button variant='contained' className={styles.btn} type='submit'>Sign In</Button>
               </div>
 
               <div className="text-center py-4">
