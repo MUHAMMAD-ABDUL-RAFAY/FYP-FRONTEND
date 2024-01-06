@@ -8,11 +8,10 @@ import { useAuthStore } from '../store/store'
 import { Button,TextField } from '@mui/material'
 import styles from '../styles/Username.module.css';
 
-export default function Username() {
 
+export default function Username() {
   const navigate = useNavigate();
   const setUsername = useAuthStore(state => state.setUsername);
-
   const formik = useFormik({
     initialValues : {
       username : ''
@@ -21,12 +20,10 @@ export default function Username() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values => {
-      console.log(values)
       setUsername(values.username);
       navigate('/password')
     }
   })
-
   return (
     <div className="container mx-auto">
       <Toaster position='top-center' reverseOrder={false}></Toaster>
@@ -40,7 +37,6 @@ export default function Username() {
               Explore More by connecting with us.
             </span>
           </div>
-
           <form className='py-1' onSubmit={formik.handleSubmit}>
               <div className='profile flex justify-center py-4'>
                   <img src={avatar} className={styles.profile_img} alt="avatar" />
@@ -52,7 +48,6 @@ export default function Username() {
                   <TextField {...formik.getFieldProps('username')} type='text' label="Username" placeholder='Username' className={styles.textbox}/>
                   <Button variant='contained' className={styles.btn} type='submit'>Let's Go</Button>
               </div>
-
               <div className="text-center py-4">
                 <span className='text-gray-500'>Not a Member <Link className='text-red-500' to="/register">Register Now</Link></span>
               </div>

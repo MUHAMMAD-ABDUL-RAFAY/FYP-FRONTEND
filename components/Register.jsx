@@ -6,15 +6,16 @@ import { useFormik } from 'formik';
 import { registerValidation } from '../helper/validate';
 import convertToBase64 from '../helper/convert';
 import { registerUser } from '../helper/helper'
-import {Button,TextField} from '@mui/material'
+import {Button,TextField,InputAdornment,IconButton} from '@mui/material'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import styles from '../styles/Username.module.css';
-
+import { useAuthStore } from '../store/store';
 export default function Register() {
 
   const navigate = useNavigate()
   const [file, setFile] = useState()
-
-
+  const [showPassword,setShowPassword] = useState(false)
   const formik = useFormik({
 
     initialValues : {
@@ -106,8 +107,12 @@ export default function Register() {
                   
                   <TextField label="Username" {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username*' />
 
-
-                  <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password*' />
+                  <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} placeholder='Password' type={showPassword ? 'text' : 'password'} InputProps={{endAdornment: (<InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                      {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                  </InputAdornment>)}} />
+                  {/* <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password*' /> */}
                   <Button variant='contained' className={styles.btn} type='submit'>Register</Button>
               </div>
 

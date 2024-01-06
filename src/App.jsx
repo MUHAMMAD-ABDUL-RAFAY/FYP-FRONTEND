@@ -1,54 +1,73 @@
-
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import React, {useState} from 'react';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import React from 'react';
+import {BrowserRouter, createBrowserRouter, RouterProvider,Route, Routes, redirect} from 'react-router-dom'
 import './App.css'
-import UploadPreview from '../components/UploadPreview';
-import Navbar from '../components/Navbar';
-import VideoPlayer from '../components/VideoPlayer';
+import Home from '../components/Home';
 import Username from '../components/Username';
 import Password from '../components/Password'
 import Register from '../components/Register';
 import Profile from '../components/Profile';
-// import Recovery from '../components/Recovery';
-// import Reset from '../components/Reset';
-// import PageNotFound from '../components/PageNotFound';
-
+import Recovery from '../components/Recovery';
+import Reset from '../components/Reset';
+import PageNotFound from '../components/PageNotFound';
+import Dashboard from '../components/Dashboard';
 import { AuthorizeUser,ProtectRoute } from '../middleware/auth';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Username />
-  },
-  {
-    path: '/register',
-    element: <Register />
-  },
-  {
-    path: '/password',
-    element: <Password />,
-  },
-  {
-    path: '/profile',
-    element: <Profile />
-  }
+function App() {  
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <Username />
+//   },
+//   {
+//     path: '/register',
+//     element: <Register />
+//   },
+//   {
+//     path: '/password',
+//     element: <Password />
+//   },
+//   {
+//     path: '/profile',
+//     element: <AuthorizeUser><Profile /></AuthorizeUser>
+//   },
+//   {
+//     path: '/recovery',
+//     element: <Recovery />
+//   },
+//   {
+//     path: '/reset',
+//     element: <Reset />
+//   },
+//   {
+//     path: '/dashboard',
+//     element: <ProtectRoute>
+//                 <UploadPreview files={files} UploadHandler={HandleUploadFinish} />
+//                 <VideoPlayer files={files} setFiles={setFiles}/>
+//               </ProtectRoute>
+//   },
+//   {
+//     path: '*',
+//     element: <PageNotFound />
+//   }
 
-])
-
-function App() {
-  const [files,setFiles] = useState([])
-  const HandleUploadFinish = (newFile) => {
-    setFiles((prevFiles) => [...prevFiles,...newFile])
-  }
+// ])
   return (
     <>
-      <Navbar />
-      <RouterProvider router={router}></RouterProvider>
-      
-      {/* <UploadPreview files={files} UploadHandler={HandleUploadFinish} />
-      <VideoPlayer files={files} setFiles={setFiles}/> */}
+      {/* <RouterProvider router={router}></RouterProvider> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route index element={<Username />} />
+            <Route path="register" element={<Register />} />
+            <Route path="password" element={<Password />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="recovery" element={<Recovery />} />
+            <Route path="reset" element={<Reset />} />
+            <Route path="dashboard" element={<ProtectRoute><Dashboard /></ProtectRoute>} />
+            <Route path="*" element={<PageNotFound />}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>  
   );
   

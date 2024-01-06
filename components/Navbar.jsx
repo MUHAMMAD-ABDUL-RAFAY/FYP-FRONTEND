@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,18 +8,29 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/store';
+import { Button } from '@mui/material';
 
 // const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+function Navbar() {
+  const {username,active,avatar}  = useAuthStore(state => state.auth);
+  const setLoginStatus = useAuthStore(state => state.setLoginStatus)
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const navigate = useNavigate()
+  const HandleLogout = () => {
+    console.log("logout")
+    localStorage.removeItem('token');
+    setLoginStatus(false)
+    navigate('/')
+  }
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -125,10 +136,10 @@ function Navbar() {
             ))} */}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {active ? <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src= {avatar === '' ? "/static/images/avatar/2.jpg" : avatar} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -147,16 +158,25 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+            <MenuItem key="logout" onClick={HandleLogout}>
+              <Typography textAlign="center">Logout</Typography>
+            </MenuItem>
             </Menu>
-          </Box>
+          </Box> :
+          <div className='flex gap-4'>
+            <Button variant='contained' onClick={() => { navigate('/') }}>Login</Button>
+            <Button variant='contained' onClick={() => { navigate('/register')}}>SignUp</Button>
+          </div>
+          }
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
 export default Navbar;
+
+{/* {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))} */}

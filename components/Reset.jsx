@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { resetPasswordValidation } from '../helper/validate'
@@ -6,15 +6,16 @@ import { resetPassword } from '../helper/helper'
 import { useAuthStore } from '../store/store';
 import { useNavigate, Navigate } from 'react-router-dom';
 import useFetch from '../hooks/fetch.hook'
-
+import { Button,TextField,IconButton,InputAdornment } from '@mui/material';
 import styles from '../styles/Username.module.css';
-
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 export default function Reset() {
 
   const { username } = useAuthStore(state => state.auth);
   const navigate = useNavigate();
   const [{ isLoading, apiData, status, serverError }] = useFetch('createResetSession')
-
+  const [showPassword,setShowPassword] = useState(false)
   const formik = useFormik({
     initialValues : {
       password : '',
@@ -24,7 +25,7 @@ export default function Reset() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values => {
-      
+      console.log(values)
       let resetPromise = resetPassword({ username, password: values.password })
 
       toast.promise(resetPromise, {
@@ -57,12 +58,24 @@ export default function Reset() {
               Enter new password.
             </span>
           </div>
-
-          <form className='py-20' onSubmit={formik.handleSubmit}>
+          {/* removed py-20 from form className */}
+          <form className='' onSubmit={formik.handleSubmit}>
               <div className="textbox flex flex-col items-center gap-6">
-                  <input {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='New Password' />
-                  <input {...formik.getFieldProps('confirm_pwd')} className={styles.textbox} type="text" placeholder='Repeat Password' />
-                  <button className={styles.btn} type='submit'>Reset</button>
+              <TextField label="New Password" {...formik.getFieldProps('password')} className={styles.textbox} placeholder='New Password' type={showPassword ? 'text' : 'password'} InputProps={{endAdornment: (<InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                      {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                  </InputAdornment>)}} />
+                  <TextField label="Repeat Password" {...formik.getFieldProps('confirm_pwd')} className={styles.textbox} placeholder='Repeat Password' type={showPassword ? 'text' : 'password'} InputProps={{endAdornment: (<InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                      {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                  </InputAdornment>)}} />
+                  
+                  {/* <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='New Password' /> */}
+                  
+                  {/* <TextField label="Repeat Password" {...formik.getFieldProps('confirm_pwd')} className={styles.textbox} type="text" placeholder='Repeat Password' /> */}
+                  <Button variant='contained' className={styles.btn} type='submit'>Reset</Button>
               </div>
 
           </form>

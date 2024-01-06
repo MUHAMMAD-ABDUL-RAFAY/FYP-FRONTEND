@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../src/assets/profile.png';
 import toast, { Toaster } from 'react-hot-toast';
@@ -8,13 +8,18 @@ import useFetch from '../hooks/fetch.hook';
 import { useAuthStore } from '../store/store'
 import { verifyPassword } from '../helper/helper'
 import styles from '../styles/Username.module.css';
-import {Button,TextField} from '@mui/material'
+import {Button,TextField,InputAdornment,IconButton} from '@mui/material'
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 export default function Password() {
 
   const navigate = useNavigate()
   const { username } = useAuthStore(state => state.auth)
+  const setLoginStatus = useAuthStore(state => state.setLoginStatus);
+  const setAvatar = useAuthStore(state => state.setAvatar)
+  const setEmail = useAuthStore(state => state.setEmail)
   const [{ isLoading, apiData, serverError }] = useFetch(`/user/${username}`)
-
+  const [showPassword, setShowPassword] = useState(false);
   const formik = useFormik({
     initialValues : {
       password : ''
@@ -33,8 +38,12 @@ export default function Password() {
 
       loginPromise.then(res => {
         let { token } = res.data;
+        console.log(apiData)
         localStorage.setItem('token', token);
-        navigate('/profile')
+        setLoginStatus(true)
+        setAvatar(apiData?.profile || '')
+        setEmail(apiData?.email)
+        navigate('/dashboard')
       })
     }
   })
@@ -63,7 +72,11 @@ export default function Password() {
               </div>
 
               <div className="textbox flex flex-col items-center gap-6">
-                  <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} type="text" placeholder='Password' />
+                  <TextField label="Password" {...formik.getFieldProps('password')} className={styles.textbox} placeholder='Password' type={showPassword ? 'text' : 'password'} InputProps={{endAdornment: (<InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                      {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </IconButton>
+                  </InputAdornment>)}} />
                   <Button variant='contained' className={styles.btn} type='submit'>Sign In</Button>
               </div>
 
