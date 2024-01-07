@@ -3,24 +3,21 @@ import ReactPlayer from 'react-player'
 import { Button } from '@mui/material';
 
 
-const VideoPlayer = ({files ,setFiles}) => {
-    // useEffect(()=>{
-    //     console.log("rendered")
-    // },[files])
-    const deleteUploadedVideo = (fileId) => {
-        console.log(fileId)
-        const updatedFilesList = files.filter((file) => file.id !== fileId);
+const VideoPlayer = ({videos, files ,setFiles}) => {
+    const deleteUploadedVideo = (videoId) => {
+        console.log(videoId)
+        const updatedFilesList = files.filter((file) => file.id !== videoId);
         setFiles(updatedFilesList);
       }
     console.log(files)
     return (
-        (   files && 
+        (   videos && 
             <div className='cameraDisplay'>
                 {
-                    files.map((f) => (
-                        <div><ReactPlayer key={f.id} url={URL.createObjectURL(f.file)} playing={true} loop={true} controls={true}  width="390px" height="300px" />
+                    videos.map((vid) => (
+                        <div><ReactPlayer key={vid._id} url={vid.videolink} playing={true} loop={true} controls={true}  width="390px" height="300px" />
                             <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem', marginTop:'5px'}}>
-                                <Button variant='contained' onClick={() => deleteUploadedVideo(f.id)}>Delete</Button>
+                                <Button variant='contained' onClick={() => deleteUploadedVideo(vid._id)}>Delete</Button>
                                 <Button variant='contained'>Analyze</Button>
                             </div>
                         </div>

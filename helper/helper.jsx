@@ -162,3 +162,24 @@ export async function resetPassword({ username, password }){
         return Promise.reject({ error })
     }
 }
+
+export async function saveVideo(response){
+    try {
+        console.log(response)
+        const token = await localStorage.getItem('token');
+        const data = await axios.post('/api/savevideo', response,{headers: {"Authorization" : `Bearer ${token}`}});
+        return Promise.resolve({data})
+    } catch (error) {
+        return Promise.reject({ error })
+    }
+}
+
+export async function getAllVideos(){
+    try {
+        const token = await localStorage.getItem('token');
+        const data = await axios.get('/api/returnallvideos',{headers: {"Authorization" : `Bearer ${token}`}});
+        return Promise.resolve({ data})
+    } catch (error) {
+        return Promise.reject({error})
+    }
+}
