@@ -63,7 +63,7 @@ function App() {
             <Route path="profile" element={<Profile />} />
             <Route path="recovery" element={<Recovery />} />
             <Route path="reset" element={<Reset />} />
-            <Route path="dashboard" element={<ProtectRoute><Dashboard /></ProtectRoute>} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="*" element={<PageNotFound />}/>
           </Route>
         </Routes>
