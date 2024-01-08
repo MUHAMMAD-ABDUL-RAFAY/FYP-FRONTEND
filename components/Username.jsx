@@ -8,10 +8,12 @@ import { useAuthStore } from '../store/store'
 import { Button,TextField } from '@mui/material'
 import styles from '../styles/Username.module.css';
 import { getUser } from '../helper/helper';
-
+import {Avatar} from '@mui/material';
 export default function Username() {
   const navigate = useNavigate();
   const setUsername = useAuthStore(state => state.setUsername);
+  const setAvatar = useAuthStore(state => state.setAvatar)
+  const setEmail = useAuthStore(state => state.setEmail)
   const formik = useFormik({
     initialValues : {
       username : ''
@@ -24,7 +26,10 @@ export default function Username() {
       const toastId = toast.loading("Checking")
       console.log(values.username)
       const res = await getUser({username:values.username})
-      console.log(res)
+      console.log("res",res)
+      setAvatar(res.data.profile)
+      setEmail(res.data.email)
+
       toast.dismiss(toastId)
       toast.success('Username Found')
       navigate('/password')
@@ -45,7 +50,8 @@ export default function Username() {
           </div>
           <form className='py-1' onSubmit={formik.handleSubmit}>
               <div className='profile flex justify-center py-4'>
-                  <img src={avatar} className={styles.profile_img} alt="avatar" />
+                  {/* <img src={avatar} className={styles.profile_img} alt="avatar" /> */}
+                  <Avatar alt="avatar" src={avatar} className={styles.profile_img} sx={{width:'135px', height:'135px'}}/>
               </div>
 
               <div className="textbox flex flex-col items-center gap-6">

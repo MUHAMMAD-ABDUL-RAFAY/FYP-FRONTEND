@@ -82,6 +82,7 @@ button:focus-visible {
   justify-items: center;
   margin-bottom: 2rem;
   padding: 0px 20px 0px 20px;
+  grid-row-gap: 2rem;
 }
 
 .UploadPreview{

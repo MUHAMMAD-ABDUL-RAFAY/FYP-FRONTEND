@@ -7,7 +7,7 @@ import convertToBase64 from '../helper/convert';
 import useFetch from '../hooks/fetch.hook';
 import { updateUser } from '../helper/helper'
 import { useNavigate } from 'react-router-dom'
-import { Button,TextField } from '@mui/material';
+import { Button,TextField, Avatar } from '@mui/material';
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
 import {useAuthStore} from '../store/store'
@@ -17,7 +17,7 @@ export default function Profile() {
   const [file, setFile] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
-  const setLoginStatus = useAuthStore((state) => state.setLoginStatus)
+  //const setLoginStatus = useAuthStore((state) => state.setLoginStatus)
   const setEmail = useAuthStore((state) => state.setEmail)
   const setAvatar = useAuthStore((state) => state.setAvatar)
   const resetUserDetails = useAuthStore((state) => state.resetUserDetails)
@@ -161,7 +161,8 @@ export default function Profile() {
           <form className='py-1' onSubmit={formik.handleSubmit}>
               <div className='profile flex justify-center pb-8 pt-2'>
                   <label htmlFor="profile">
-                    <img src={file || apiData?.profile || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                    {/* <img src={file || apiData?.profile || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" /> */}
+                    <Avatar src={file || apiData?.profile || avatar} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" sx={{height:'135px' ,width:'135px'}} />
                   </label>
                   
                   <input onChange={onUpload} type="file" id='profile' name='profile' accept='image/*'/>
