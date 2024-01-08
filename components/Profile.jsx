@@ -10,13 +10,17 @@ import { useNavigate } from 'react-router-dom'
 import { Button,TextField } from '@mui/material';
 import styles from '../styles/Username.module.css';
 import extend from '../styles/Profile.module.css'
-
+import {useAuthStore} from '../store/store'
+import { useRef } from 'react';
 export default function Profile() {
-
+  const toasterRef = useRef()
   const [file, setFile] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
-  
+  const setLoginStatus = useAuthStore((state) => state.setLoginStatus)
+  const setEmail = useAuthStore((state) => state.setEmail)
+  const setAvatar = useAuthStore((state) => state.setAvatar)
+  const resetUserDetails = useAuthStore((state) => state.resetUserDetails)
   const formik = useFormik({
     initialValues : {
       firstName : apiData?.firstName || '',
@@ -30,6 +34,7 @@ export default function Profile() {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit : async values => {
+      const toastId = toast.loading('Updating')
       if(file){
         const formData = new FormData()
         formData.append('file',file)
@@ -41,33 +46,82 @@ export default function Profile() {
         .then(async (res) => {
           const data = await res.json()
           values = await Object.assign(values, { profile : data?.secure_url || apiData?.profile || ''})
-          let updatePromise = updateUser(values);
-          toast.promise(updatePromise, {
-            loading: 'Updating...',
-            success : <b>Update Successfully...!</b>,
-            error: <b>Could not Update!</b>
-          });
+          try {
+            
+            let res = await updateUser(values)
+            if(res.data.status === 201){
+              console.log("res1",res)
+              setAvatar(values.profile || '')
+              setEmail(values.email || '')
+              toast.dismiss(toastId)
+              toast.success('Update Successfully')
+            }
+            
+          } 
+          catch(error) {
+            toast.dismiss(toastId)
+            toast.error("Error in Updating")
+          }
+          // let updatePromise = updateUser(values);
+          // toast.promise(updatePromise, {
+          //   loading: 'Updating...',
+          //   success : <b>Update Successfully</b>,
+          //   error: <b>Could not Update!</b>
+          // });
         })
         .catch(async (err) => {
           values = await Object.assign(values, { profile : apiData?.profile || ''})
-          let updatePromise = updateUser(values);
-          toast.promise(updatePromise, {
-            loading: 'Updating...',
-            success : <b>Update Successfully...!</b>,
-            error: <b>Could not Update!</b>
-          });
+          try {
+            let res = await updateUser(values)
+            if(res.data.status === 201){
+              console.log("res2",res)
+              setAvatar(values.profile || '')
+              setEmail(values.email || '')
+              toast.dismiss(toastId)
+              toast.success('Update Successfully')
+            }
+          } 
+          catch(error) {
+            toast.dismiss(toastId)
+            toast.error("Error in Updating")
+          }
+          // let updatePromise = updateUser(values);
+          // toast.promise(updatePromise, {
+          //   loading: 'Updating...',
+          //   success : <b>Update Successfully</b>,
+          //   error: <b>Could not Update!</b>
+          // });
         })
       }
       else{
         values = await Object.assign(values, { profile : file || apiData?.profile || ''})
-        let updatePromise = updateUser(values);
-        toast.promise(updatePromise, {
-          loading: 'Updating...',
-          success : <b>Update Successfully...!</b>,
-          error: <b>Could not Update!</b>
-        });
+        try {
+          let res = await updateUser(values)
+          if(res.data.status === 201){
+            console.log("res3",res,values)
+            setAvatar(values?.profile || '')
+            setEmail(values?.email || '')
+            toast.dismiss(toastId)
+            toast.success('Update Successfully')
+          }
+        } 
+        catch(error) {
+          toast.dismiss(toastId)
+          toast.error("Error in Updating")
+        }
+        // let updatePromise = updateUser(values);
+        // toast.promise(updatePromise, {
+        //   loading: 'Updating...',
+        //   success : <b>Update Successfully</b>,
+        //   error: <b>Could not Update!</b>
+        // });
       }
-      
+      // const UpdateInfo = ({email,profile}) => {
+      //   console.log(profile,email)
+      //   setAvatar(profile)
+      //   setEmail(email)
+      //   toast("Details Updated Successfully")
+      // }
 
     }//end submit
   })
@@ -81,6 +135,8 @@ export default function Profile() {
   // logout handler function
   function userLogout(){
     localStorage.removeItem('token');
+    resetUserDetails()
+    useAuthStore.persist.clearStorage()
     navigate('/')
   }
 
@@ -90,7 +146,7 @@ export default function Profile() {
   return (
     <div className="container mx-auto">
 
-      <Toaster position='top-center' reverseOrder={false}></Toaster>
+      <Toaster useRef={toasterRef} position='top-center' reverseOrder={false}></Toaster>
 
       <div className='flex justify-center items-center mt-16'>
         <div className={`${styles.glass} ${extend.glass}`} style={{ width: "45%", paddingTop: '1em'}}>

@@ -10,9 +10,12 @@ import { Button,TextField,IconButton,InputAdornment } from '@mui/material';
 import styles from '../styles/Username.module.css';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-export default function Reset() {
 
+
+export default function Reset() {
   const { username } = useAuthStore(state => state.auth);
+  const setLoginStatus = useAuthStore(state => state.setLoginStatus)
+  const resetUserDetails = useAuthStore(state => state.resetUserDetails)
   const navigate = useNavigate();
   const [{ isLoading, apiData, status, serverError }] = useFetch('createResetSession')
   const [showPassword,setShowPassword] = useState(false)
@@ -34,7 +37,12 @@ export default function Reset() {
         error : <b>Could not Reset!</b>
       });
 
-      resetPromise.then(function(){ navigate('/password') })
+      resetPromise.then(function(){ 
+        localStorage.removeItem('token')
+        resetUserDetails()
+        useAuthStore.persist.clearStorage()
+        navigate('/') 
+      })
 
     }
   })

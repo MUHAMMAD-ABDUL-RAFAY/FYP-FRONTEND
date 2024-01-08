@@ -20,16 +20,17 @@ import { Button } from '@mui/material';
 
 
 function Navbar() {
-  const {username,active,avatar}  = useAuthStore(state => state.auth);
-  const setLoginStatus = useAuthStore(state => state.setLoginStatus)
+  const {active,avatar}  = useAuthStore(state => state.auth);
+  const resetUserDetails = useAuthStore(state => state.resetUserDetails)
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate()
   const HandleLogout = () => {
-    console.log("logout")
     setAnchorElUser(null)
     localStorage.removeItem('token');
-    setLoginStatus(false)
+    resetUserDetails()
+    useAuthStore.persist.clearStorage()
+    // setLoginStatus(false)
     navigate('/')
   }
   const HandleProfile = () => {
@@ -55,6 +56,10 @@ function Navbar() {
       navigate('/dashboard')
     else
       navigate('/')
+  }
+  const HandleRecovery = () => {
+    setAnchorElUser(null)
+    navigate('/recovery')
   }
 
   return (
@@ -170,6 +175,9 @@ function Navbar() {
             >
             <MenuItem key="profile" onClick={HandleProfile}>
               <Typography textAlign="center">Profile</Typography>
+            </MenuItem>
+            <MenuItem key="recovery" onClick={HandleRecovery}>
+              <Typography textAlign="center">Password Recovery</Typography>
             </MenuItem>
             <MenuItem key="logout" onClick={HandleLogout}>
               <Typography textAlign="center">Logout</Typography>
