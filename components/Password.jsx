@@ -29,22 +29,39 @@ export default function Password() {
     validateOnChange: false,
     onSubmit : async values => {
       
-      let loginPromise = verifyPassword({ username, password : values.password })
-      toast.promise(loginPromise, {
-        loading: 'Checking...',
-        success : <b>Login Successfully...!</b>,
-        error : <b>Password Not Match!</b>
-      });
-
-      loginPromise.then(res => {
-        let { token } = res.data;
+      const toastId = toast.loading("Checking")
+      try {
+        let res = await verifyPassword({ username, password : values.password })
+        let {token} = res.data
         console.log(apiData)
         localStorage.setItem('token', token);
         setLoginStatus(true)
         setAvatar(apiData?.profile || '')
         setEmail(apiData?.email)
-        navigate('/dashboard')
-      })
+        toast.dismiss(toastId)
+        toast.success('Login Successfully')
+        navigate('/dashboard')  
+      } 
+      catch(error) {
+        toast.dismiss(toastId)
+        toast.error("Password doesn't Match")
+      }
+      
+      // toast.promise(loginPromise, {
+      //   loading: 'Checking...',
+      //   success : <b>Login Successfully...!</b>,
+      //   error : <b>Password Not Match!</b>
+      // });
+
+      // loginPromise.then(res => {
+      //   let { token } = res.data;
+      //   console.log(apiData)
+      //   localStorage.setItem('token', token);
+      //   setLoginStatus(true)
+      //   setAvatar(apiData?.profile || '')
+      //   setEmail(apiData?.email)
+      //   navigate('/dashboard')
+      // })
     }
   })
 

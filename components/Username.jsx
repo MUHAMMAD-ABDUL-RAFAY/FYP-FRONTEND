@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import avatar from '../src/assets/profile.png';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { usernameValidate } from '../helper/validate'
 import { useAuthStore } from '../store/store'
 import { Button,TextField } from '@mui/material'
 import styles from '../styles/Username.module.css';
-
+import { getUser } from '../helper/helper';
 
 export default function Username() {
   const navigate = useNavigate();
@@ -21,6 +21,12 @@ export default function Username() {
     validateOnChange: false,
     onSubmit : async values => {
       setUsername(values.username);
+      const toastId = toast.loading("Checking")
+      console.log(values.username)
+      const res = await getUser({username:values.username})
+      console.log(res)
+      toast.dismiss(toastId)
+      toast.success('Username Found')
       navigate('/password')
     }
   })

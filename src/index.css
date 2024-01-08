@@ -81,6 +81,7 @@ button:focus-visible {
   margin-top: 2rem;
   justify-items: center;
   margin-bottom: 2rem;
+  padding: 0px 20px 0px 20px;
 }
 
 .UploadPreview{
@@ -88,5 +89,18 @@ button:focus-visible {
   align-content: center;
   padding: 0px 20px 0px 20px;
 }
+
+@media (width < 420px) {
+  .cameraDisplay{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+  }
+  .videoContainer{
+    width: 90vw;
+  }
+}
+
 
 /* style={{display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(400px,1fr))', marginTop:"2rem"}} */
