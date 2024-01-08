@@ -13,7 +13,7 @@ import extend from '../styles/Profile.module.css'
 import {useAuthStore} from '../store/store'
 import { useRef } from 'react';
 export default function Profile() {
-  const toasterRef = useRef()
+  // const toasterRef = useRef()
   const [file, setFile] = useState();
   const [{ isLoading, apiData, serverError }] = useFetch();
   const navigate = useNavigate()
@@ -146,7 +146,7 @@ export default function Profile() {
   return (
     <div className="container mx-auto">
 
-      <Toaster useRef={toasterRef} position='top-center' reverseOrder={false}></Toaster>
+      {/* <Toaster useRef={toasterRef} position='top-center' reverseOrder={false}></Toaster> */}
 
       <div className='flex justify-center items-center mt-16'>
         <div className={`${styles.glass} ${extend.glass}`} style={{ width: "45%", paddingTop: '1em'}}>

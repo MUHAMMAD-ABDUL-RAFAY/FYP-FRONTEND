@@ -11,6 +11,7 @@ import Reset from '../components/Reset';
 import PageNotFound from '../components/PageNotFound';
 import Dashboard from '../components/Dashboard';
 import { AuthorizeUser,ProtectRoute } from '../middleware/auth';
+import { Toaster } from 'react-hot-toast';
 
 function App() {  
 // const router = createBrowserRouter([
@@ -54,8 +55,10 @@ function App() {
   return (
     <>
       {/* <RouterProvider router={router}></RouterProvider> */}
+      
       <BrowserRouter>
-        <Routes>
+        <Toaster position='top-center' reverseOrder={false}/>
+        <Routes> 
           <Route path="/" element={<Home />}>
             <Route index element={<Username />} />
             <Route path="register" element={<Register />} />
@@ -68,6 +71,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+    
     </>  
   );
   

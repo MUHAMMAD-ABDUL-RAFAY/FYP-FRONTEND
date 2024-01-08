@@ -56,7 +56,7 @@ export default function Recovery() {
   return (
     <div className="container mx-auto">
 
-      <Toaster position='top-center' reverseOrder={false}></Toaster>
+      {/* <Toaster position='top-center' reverseOrder={false}></Toaster> */}
 
       <div className='flex justify-center items-center h-screen'>
         <div className={styles.glass}>

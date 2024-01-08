@@ -81,7 +81,7 @@ export default function Register() {
   return (
     <div className="container mx-auto">
 
-      <Toaster position='top-center' reverseOrder={false}></Toaster>
+      {/* <Toaster position='top-center' reverseOrder={false}></Toaster> */}
 
       <div className='flex justify-center items-center mt-16'>
         <div className={styles.glass} style={{ width: "45%", paddingTop: '1em'}}>
