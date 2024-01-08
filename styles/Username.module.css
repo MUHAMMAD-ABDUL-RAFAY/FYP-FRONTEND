@@ -7,14 +7,14 @@
     @apply border-4 border-gray-50 shrink-0 max-h-max w-[30%] rounded-3xl py-4 px-7 min-w-max;
 }
 
-@media (width < 450px) {
+/* @media (width < 450px) {
     .glass{
         border: 1rem solid green;
         margin: 0px 2rem 0px 2rem;
         width: 100vw
     }
     
-}
+} */
 
 
 .profile_img{
