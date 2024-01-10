@@ -12,6 +12,7 @@ import PageNotFound from '../components/PageNotFound';
 import Dashboard from '../components/Dashboard';
 import { AuthorizeUser,ProtectRoute } from '../middleware/auth';
 import { Toaster } from 'react-hot-toast';
+import LiveVideo from '../components/LiveVideo';
 
 function App() {  
 // const router = createBrowserRouter([
@@ -67,6 +68,7 @@ function App() {
             <Route path="recovery" element={<Recovery />} />
             <Route path="reset" element={<Reset />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="livevideo" element={<LiveVideo />} />
             <Route path="*" element={<PageNotFound />}/>
           </Route>
         </Routes>
