@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+
+/public/shoplifting-best.onnx
+/public/shoplifting-best.pt
+/public/yolov8n.pt
