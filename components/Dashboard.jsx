@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import UploadPreview from './UploadPreview'
 import VideoPlayer from './VideoPlayer'
 import { getAllVideos } from '../helper/helper'
@@ -8,13 +8,16 @@ const Dashboard = () => {
     const HandleUploadFinish = (newFile) => {
         setFiles((prevFiles) => [...prevFiles,...newFile])
     }
+    const handleDelete = (videoId) => {
+        const updatedVideosList = videos.filter((vid) => vid._id !== videoId)
+        setVideos(updatedVideosList)
+    }
     useEffect(() => {
-        console.log("useeffet called")
         const getAllUploadedVideos = async () => {
             const {data} = await getAllVideos()
             if(data.status === 200)
             {   
-                console.log(data.data.videos)
+                console.log("videos",data.data.videos)
                 setVideos(data.data.videos)
             }
         }
@@ -23,7 +26,8 @@ const Dashboard = () => {
     return (
         <> 
             <UploadPreview UploadHandler={HandleUploadFinish} />
-            <VideoPlayer videos={videos} files={files}  setFiles={setFiles}/>
+            <VideoPlayer videos={videos} setVideos={setVideos} files={files}  setFiles={setFiles} handleDelete={handleDelete}/>
+            
         </>
     )
 }

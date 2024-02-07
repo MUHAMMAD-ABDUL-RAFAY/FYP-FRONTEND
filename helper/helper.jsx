@@ -188,4 +188,17 @@ export async function getAllVideos(){
     }
 }
 
+export async function deleteVideo(response){
+    try{
+        console.log("hey",response)
+        const token = await localStorage.getItem('token');
+        const data = await axios.post(`/api/deletevideo`,response,{headers: {"Authorization": `Bearer ${token}`}});
+        console.log(data)
+        return Promise.resolve({data})
+    }
+    catch(error){
+        return Promise.reject({error})
+    }
+}
+
 
