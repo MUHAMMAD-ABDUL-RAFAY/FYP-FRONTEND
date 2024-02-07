@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 
 
-/public/shoplifting-best.onnx
-/public/shoplifting-best.pt
-/public/yolov8n.pt
+
+public/shoplifting-best.onnx
+public/shoplifting-best.pt
+public/yolov8n.pt
