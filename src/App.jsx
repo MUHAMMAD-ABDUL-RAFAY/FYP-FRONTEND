@@ -13,7 +13,7 @@ import Dashboard from '../components/Dashboard';
 import { AuthorizeUser,ProtectRoute } from '../middleware/auth';
 import { Toaster } from 'react-hot-toast';
 import LiveVideo from '../components/LiveVideo';
-
+import AnalyzeVideo from '../components/AnalyzeVideo';
 
 function App() {  
 
@@ -33,6 +33,7 @@ function App() {
               <Route path="reset" element={<Reset />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="livevideo" element={<LiveVideo />} />
+              <Route path="analyzevideo" element={<AnalyzeVideo />} />
               <Route path="*" element={<PageNotFound />}/>
             </Route>
           </Routes>

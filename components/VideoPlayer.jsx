@@ -5,12 +5,14 @@ import axios from 'axios';
 import { deleteVideo } from '../helper/helper';
 import {CircularProgress} from '@mui/material';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 
 const VideoPlayer = ({videos,setVideos,files,setFiles,handleDelete}) => {
     const [isOpen,setIsOpen] = useState(false);
     const [selectedVideo,setSelectedVideo] = useState(null)
     const [deleting,setDeleting] = useState(false)
+    const navigate = useNavigate();
     const deleteUploadedVideo = async (video) => {
         console.log(video)
         setIsOpen(true);
@@ -52,6 +54,9 @@ const VideoPlayer = ({videos,setVideos,files,setFiles,handleDelete}) => {
         // const data = await res.json()
         console.log(data)
     }
+    const analyzeHandler = (video) => {
+        navigate('/analyzevideo',{state: {video}})
+    }
     return (
         (   videos && 
             <>
@@ -61,8 +66,9 @@ const VideoPlayer = ({videos,setVideos,files,setFiles,handleDelete}) => {
                             <div className='videoContainer'>
                                 <ReactPlayer key={vid._id} url={vid.videolink} playing={true} loop={true} controls={true} width='100%' height='300px' />
                                     <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem', marginTop:'5px'}}>
-                                        <Button variant='contained' onClick={() => sendVideoToBackEnd(vid)} >Analyze</Button>
+                                        <Button variant='contained' onClick={() => analyzeHandler(vid)} >Analyze</Button>
                                         <Button variant='contained' color='error' onClick={() => {
+                                            console.log(vid)
                                             setIsOpen(true)
                                             setSelectedVideo(vid)
                                         }}>Delete</Button>

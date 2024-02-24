@@ -172,6 +172,7 @@ export async function saveVideo(response){
         console.log(response)
         const token = await localStorage.getItem('token');
         const data = await axios.post('/api/savevideo', response,{headers: {"Authorization" : `Bearer ${token}`}});
+        console.log(data)
         return Promise.resolve({data})
     } catch (error) {
         return Promise.reject({ error })
