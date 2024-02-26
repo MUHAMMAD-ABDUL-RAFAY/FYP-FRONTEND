@@ -61,6 +61,9 @@ function Navbar() {
     setAnchorElUser(null)
     navigate('/recovery')
   }
+  const HandleLiveVideoPage = () => {
+    navigate('/livevideo')
+  }
 
   return (
     <AppBar position="static">
@@ -151,9 +154,11 @@ function Navbar() {
                 {page}
               </Button>
             ))} */}
+            
           </Box>
           
-          {active ? <Box sx={{ flexGrow: 0 }}>
+          {active ? <Box className='flex gap-x-8' sx={{ flexGrow: 0 }}>
+            <Button variant='contained' onClick={HandleLiveVideoPage}>Live Video Feature!</Button>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src= {avatar === '' ? "/static/images/avatar/2.jpg" : avatar} />

@@ -101,7 +101,7 @@ const LiveVideo = () => {
         className="h-full flex"
         style={{ margin: "1rem 1rem 1rem 1rem", columnGap: "1rem" }}
       >
-        {isCameraOn ? (
+        {connect ? (
           <img src={connect ? `http://127.0.0.1:8000/api/livevideo/${model}/${threshold}` : ""} />
         ) : (
           <WebcamOff />
@@ -143,13 +143,13 @@ const LiveVideo = () => {
         {/* <Webcam className='sm:h-[30vh]' mirrored={true} style={{display:'inline', height:'60vh'}}/> */}
       </div>
       <div className="flex flex-row justify-center" style={{columnGap:"1rem"}}>
-      <Button
+      {/* <Button
         variant="contained"
         startIcon={isCameraOn ? <VideocamOffIcon /> : <VideocamIcon />}
         onClick={isCameraOn ? handleTurnOffCamera : handleTurnOnCamera}
       >
         {isCameraOn ? "Turn Off Camera" : "Turn On Camera"}
-      </Button>
+      </Button> */}
       {connect ? (
         <Button
           variant="contained"

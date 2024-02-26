@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
+import toast from "react-hot-toast";
 
 const AnalyzeVideo = () => {
   const location = useLocation();
@@ -42,7 +42,18 @@ const AnalyzeVideo = () => {
   };
   const handleStart = () => {
     console.log("Start");
+    let toastId;
+    toastId = toast.loading("Setting Up Model");
     setIsPredicting(true);
+    
+    socket.on("videostart", (data) => {
+      console.log("data");
+      toast.dismiss(toastId);
+      toast.success("Video Started");
+      // setIsCameraOn(val)
+      // setIsPredicting(true)
+    });
+
   };
   socket?.on("Anamoly", ({Class,Coordinates}) => {
     setAnamoly(Class)
@@ -115,7 +126,7 @@ const AnalyzeVideo = () => {
       </div>
       <div className="flex flex-row justify-center gap-x-8 mt-8">
         {isPredicting ? (
-          <Button variant="contained" onClick={handleStop}>
+          <Button style={{ backgroundColor: "#CC0000", color: "#fff" }} variant="contained" onClick={handleStop}>
             Stop
           </Button>
         ) : (
